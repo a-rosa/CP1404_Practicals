@@ -1,3 +1,8 @@
+"""
+CP1404 Practical
+Temperature
+"""
+
 MENU = """C - Convert Celsius to Fahrenheit
 F - Convert Fahrenheit to Celsius
 Q - Quit"""
@@ -17,4 +22,3 @@ while choice != "Q":
     print(MENU)
     choice = input(">>> ").upper()
 print("Thank you.")
-
