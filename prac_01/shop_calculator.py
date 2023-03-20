@@ -1,3 +1,8 @@
+"""
+CP1404 Practical
+Shop Calculator
+"""
+
 DISCOUNT = 0.9
 number_of_items = int(input("Number of items: "))
 while number_of_items < 0:
