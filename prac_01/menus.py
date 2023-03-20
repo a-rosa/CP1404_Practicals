@@ -1,3 +1,8 @@
+"""
+CP1404 Practical
+Menus
+"""
+
 MENU = """(H)ello
 (G)oodbye
 (Q)uit"""
