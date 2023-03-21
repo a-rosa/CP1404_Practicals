@@ -8,6 +8,7 @@ MENU = """(G)et a valid score
 (Q)uit"""
 
 def main():
+    """Function is to ask for score and print either menu or stars according to the score"""
     score = get_valid_score()
     print(MENU)
     choice = input(">> ").upper()
@@ -27,6 +28,7 @@ def main():
 
 
 def get_valid_score():
+    """Function is to get valid score"""
     score = int(input("Enter score: "))
     while score < 0 or score > 100:
         print("Invalid score")
@@ -35,6 +37,7 @@ def get_valid_score():
 
 
 def determine_score_category(score):
+    """Function is to determine if the score is excellent, passable or bad"""
     if score >= 90:
         return "Excellent"
     elif score >= 50:
