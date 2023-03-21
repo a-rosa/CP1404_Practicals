@@ -8,6 +8,7 @@ MENU = """(G)et a valid score
 (Q)uit"""
 
 def main():
+    score = get_valid_score()
     print(MENU)
     choice = input(">> ").upper()
     while choice != "Q":
@@ -20,6 +21,8 @@ def main():
             print("*" * score)
         else:
             print("Invalid choice")
+        print(MENU)
+        choice = input(">> ").upper()
     print("Farewell")
 
 
