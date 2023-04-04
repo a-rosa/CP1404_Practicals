@@ -7,11 +7,13 @@ FILENAME = "subject_data.txt"
 
 
 def main():
+    """Get data of the subject and print it in a sentence"""
     data = get_data()
     print_data(data)
 
 
 def print_data(data):
+    """Print the data in the form of 'subject' is taught by 'lecturer' and has 'number of students' students"""
     for subject_data in data:
         print(f"{subject_data[0]} is taught by {subject_data[1]} and has {subject_data[2]} students")
 
