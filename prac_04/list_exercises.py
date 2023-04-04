@@ -1,5 +1,6 @@
+AMOUNT_OF_NUMBERS = 5
 numbers = []
-for i in range(5):
+for i in range(AMOUNT_OF_NUMBERS):
     number = int(input("Number: "))
     numbers.append(number)
 print(f"The first number is {numbers[0]}")
