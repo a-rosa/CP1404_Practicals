@@ -5,6 +5,7 @@ actual: 30 mins
 """
 
 def main():
+    """Make a dictionary of emails and names and print them all in the end"""
     email_details = {}
     email = input("Email: ")
 
@@ -21,6 +22,8 @@ def main():
         print(f"{detail[0]} ({detail[1]})")
 
 def get_name(email):
+    """Extract name from email"""
+    # get the front part of the email before the @ and join the names that are in between the dots
     name = " ".join(email.split("@")[0].split(".")).title()
     return name
 
