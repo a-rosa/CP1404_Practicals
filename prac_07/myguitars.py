@@ -8,10 +8,10 @@ def main():
     for name, year, cost in guitar_data:
         guitars.append(Guitar(name, int(year), float(cost)))
     in_file.close()
-    
+    guitars.sort()
+    print("This is the guitar list:")
     for guitar in guitars:
         print(guitar)
-
 
 
 main()
