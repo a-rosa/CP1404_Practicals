@@ -24,7 +24,7 @@ def main():
                 print("Load complete")
             except FileNotFoundError:
                 print("File is not found")
-        elif choice == 's':
+        elif choice == "s":
             filename = input("Filename: ")
             with open(f"{filename}.txt", "w") as out_file:
                 print("Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
@@ -32,6 +32,17 @@ def main():
                     print(f"{project.name}\t{project.start_date}\t{project.priority}\t{project.cost_estimate}"
                           f"\t{project.completion_percentage}", file=out_file)
                 print("Save complete")
+        elif choice == "d":
+            projects.sort()
+            print("Incomplete Projects:")
+            for project in projects:
+                if not project.is_completed():
+                    print(" ", project)
+            print("Complete Projects:")
+            for project in projects:
+                if project.is_completed():
+                    print(" ", project)
+
         print(MENU)
         choice = input(">>> ").lower()
 def store_data(project_data):
