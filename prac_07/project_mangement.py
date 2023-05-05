@@ -52,7 +52,7 @@ def main():
         elif choice == "a":
             name = get_valid_name()
             start_date = get_valid_start_date()
-            priority = get_valid_integer("Priority: ")
+            priority = get_valid_priority()
             cost_estimate = get_valid_estimate()
             completion_percentage = get_valid_percentage()
             project = Project(name, start_date, priority, cost_estimate, completion_percentage)
@@ -87,6 +87,14 @@ def get_valid_percentage():
         print("Invalid percentage, between 0% and 100%")
         completion_percentage = get_valid_percentage()
     return completion_percentage
+
+
+def get_valid_priority():
+    priority = get_valid_integer("Priority: ")
+    while priority <= 0:
+        print("Invalid input, must be higher than 0")
+        priority = get_valid_integer("Priority: ")
+    return priority
 
 
 def get_valid_integer(prompt):
