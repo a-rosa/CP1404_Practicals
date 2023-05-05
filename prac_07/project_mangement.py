@@ -16,11 +16,14 @@ def main():
     choice = input(">>> ").lower()
     while choice != "q":
         if choice == "l":
-            filename = input("Filename (with .txt): ")
-            with open(filename, "r", newline='') as in_file:
-                new_data = in_file.readlines()[1:]
-                store_data(new_data)
-            print("Load complete")
+            try:
+                filename = input("Filename (with .txt): ")
+                with open(filename, "r", newline='') as in_file:
+                    new_data = in_file.readlines()[1:]
+                    store_data(new_data)
+                print("Load complete")
+            except FileNotFoundError:
+                print("File is not found")
         print(MENU)
         choice = input(">>> ").lower()
 def store_data(project_data):
