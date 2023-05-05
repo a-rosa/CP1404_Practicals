@@ -1,4 +1,5 @@
 from project import Project
+import datetime
 
 MENU = """- (L)oad Projects
 - (S)ave projects
@@ -42,9 +43,49 @@ def main():
             for project in projects:
                 if project.is_completed():
                     print(" ", project)
+        elif choice == "f":
+            date = get_valid_date()
+            filtered_projects = filter_projects(date, projects)
+            sort_filtered_projects(filtered_projects)
+            for project in filtered_projects:
+                print(project)
 
         print(MENU)
         choice = input(">>> ").lower()
+
+
+def sort_filtered_projects(filtered_projects):
+    for first_pointer in range(len(filtered_projects)):
+        for second_pointer in range(len(filtered_projects)):
+            comparison_date = datetime.datetime.strptime(filtered_projects[second_pointer].start_date,
+                                                         "%d/%m/%Y").date()
+            base_date = datetime.datetime.strptime(filtered_projects[first_pointer].start_date, "%d/%m/%Y").date()
+            if comparison_date > base_date:
+                temporary_storage = filtered_projects[second_pointer]
+                filtered_projects[second_pointer] = filtered_projects[first_pointer]
+                filtered_projects[first_pointer] = temporary_storage
+
+
+def filter_projects(date, projects):
+    filtered_projects = []
+    for project in projects:
+        project_start_date = datetime.datetime.strptime(project.start_date, "%d/%m/%Y").date()
+        if project_start_date >= date:
+            filtered_projects.append(project)
+    return filtered_projects
+
+def get_valid_date():
+    is_valid = False
+    while not is_valid:
+        try:
+            date_string = input("Show projects that start after date (dd/mm/yyyy): ")
+            date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+            is_valid = True
+        except ValueError:
+            print("Must input in the dd/mm/yyyy format")
+    return date
+
+
 def store_data(project_data):
     projects = []
     for data in project_data:
