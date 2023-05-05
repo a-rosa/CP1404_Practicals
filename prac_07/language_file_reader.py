@@ -24,7 +24,7 @@ def main():
         # Strip newline from end and split it into parts (CSV)
         parts = line.strip().split(',')
         # print(parts)  # debugging
-        # Reflection is stored as a string (Yes/No) and we want a Boolean
+        # Reflection and pointer arithmetic is stored as a string (Yes/No) and we want a Boolean
         reflection = parts[2] == "Yes"
         pointer_arithmetic = parts[3] == "Yes"
         # Construct a ProgrammingLanguage object using the elements
