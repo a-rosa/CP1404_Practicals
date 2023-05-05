@@ -10,13 +10,24 @@ MENU = """- (L)oad Projects
 
 def main():
     with open("projects.txt", "r", newline='') as in_file:
-        projects = []
         project_data = in_file.readlines()[1:]
-        for data in project_data:
-            data = data.strip().split("\t")
-            projects.append(Project(data[0], data[1], int(data[2]), float(data[3]), int(data[4])))
-
-
+        store_data(project_data)
+    print(MENU)
+    choice = input(">>> ").lower()
+    while choice != "q":
+        if choice == "l":
+            filename = input("Filename (with .txt): ")
+            with open(filename, "r", newline='') as in_file:
+                new_data = in_file.readlines()[1:]
+                store_data(new_data)
+            print("Load complete")
+        print(MENU)
+        choice = input(">>> ").lower()
+def store_data(project_data):
+    projects = []
+    for data in project_data:
+        data = data.strip().split("\t")
+        projects.append(Project(data[0], data[1], int(data[2]), float(data[3]), int(data[4])))
 
 
 main()
