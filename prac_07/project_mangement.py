@@ -44,14 +44,73 @@ def main():
                 if project.is_completed():
                     print(" ", project)
         elif choice == "f":
-            date = get_valid_date()
+            date = get_valid_date("Show projects that start after date (dd/mm/yyyy): ")
             filtered_projects = filter_projects(date, projects)
             sort_filtered_projects(filtered_projects)
             for project in filtered_projects:
                 print(project)
+        elif choice == "a":
+            name = get_valid_name()
+            start_date = get_valid_start_date()
+            priority = get_valid_integer("Priority: ")
+            cost_estimate = get_valid_estimate()
+            completion_percentage = get_valid_percentage()
+            project = Project(name, start_date, priority, cost_estimate, completion_percentage)
+            projects.append(project)
 
         print(MENU)
         choice = input(">>> ").lower()
+
+
+def get_valid_estimate():
+    cost_estimate = get_valid_float_value()
+    while cost_estimate < 0:
+        print("Invalid input, must be more than $0")
+        cost_estimate = float(get_valid_integer("Cost estimate: $"))
+    return cost_estimate
+
+
+def get_valid_float_value():
+    is_valid = False
+    while not is_valid:
+        try:
+            cost_estimate = float(input("Cost estimate: $"))
+            is_valid = True
+        except ValueError:
+            print("Invalid input, numbers only")
+    return cost_estimate
+
+
+def get_valid_percentage():
+    completion_percentage = get_valid_integer("Completion percentage: ")
+    while completion_percentage < 0 or completion_percentage > 100:
+        print("Invalid percentage, between 0% and 100%")
+        completion_percentage = get_valid_percentage()
+    return completion_percentage
+
+
+def get_valid_integer(prompt):
+    is_valid = False
+    while not is_valid:
+        try:
+            number = int(input(prompt))
+            is_valid = True
+        except ValueError:
+            print("Invalid input, integer only")
+    return number
+
+def get_valid_start_date():
+    date = get_valid_date("Start date: ")
+    start_date = f"{date.strftime('%d')}/{date.strftime('%m')}/{date.strftime('%Y')}"
+    return start_date
+
+
+def get_valid_name():
+    name = input("Project name: ").title()
+    while name == "":
+        print("Input can not be blank")
+        name = input("Project name: ").title()
+    return name
 
 
 def sort_filtered_projects(filtered_projects):
@@ -74,15 +133,15 @@ def filter_projects(date, projects):
             filtered_projects.append(project)
     return filtered_projects
 
-def get_valid_date():
+def get_valid_date(prompt):
     is_valid = False
     while not is_valid:
         try:
-            date_string = input("Show projects that start after date (dd/mm/yyyy): ")
+            date_string = input(prompt)
             date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
             is_valid = True
         except ValueError:
-            print("Must input in the dd/mm/yyyy format")
+            print("Invalid date, it should be a valid date in dd/mm/yyyy format")
     return date
 
 
