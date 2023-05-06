@@ -9,6 +9,7 @@ MENU = """- (L)oad Projects
 - (U)pdate project
 - (Q)uit"""
 
+
 def main():
     with open("projects.txt", "r", newline='') as in_file:
         project_data = in_file.readlines()[1:]
@@ -74,11 +75,11 @@ def get_valid_float_value():
     is_valid = False
     while not is_valid:
         try:
-            cost_estimate = float(input("Cost estimate: $"))
+            decimal = float(input("Cost estimate: $"))
             is_valid = True
+            return decimal
         except ValueError:
             print("Invalid input, numbers only")
-    return cost_estimate
 
 
 def get_valid_percentage():
@@ -103,9 +104,10 @@ def get_valid_integer(prompt):
         try:
             number = int(input(prompt))
             is_valid = True
+            return number
         except ValueError:
             print("Invalid input, integer only")
-    return number
+
 
 def get_valid_start_date():
     date = get_valid_date("Start date: ")
@@ -141,6 +143,7 @@ def filter_projects(date, projects):
             filtered_projects.append(project)
     return filtered_projects
 
+
 def get_valid_date(prompt):
     is_valid = False
     while not is_valid:
@@ -148,9 +151,9 @@ def get_valid_date(prompt):
             date_string = input(prompt)
             date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
             is_valid = True
+            return date
         except ValueError:
             print("Invalid date, it should be a valid date in dd/mm/yyyy format")
-    return date
 
 
 def store_data(project_data):
