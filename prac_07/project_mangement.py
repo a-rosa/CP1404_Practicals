@@ -11,8 +11,8 @@ MENU = """- (L)oad Projects
 
 
 def main():
-    filename = "projects.txt"
-    with open(filename, "r", newline='') as in_file:
+    filename = "projects"
+    with open(f"{filename}.txt", "r", newline='') as in_file:
         project_data = in_file.readlines()[1:]
         projects = store_data(project_data)
     print(MENU)
@@ -29,12 +29,8 @@ def main():
                 print("File is not found")
         elif choice == "s":
             filename = input("Filename: ")
-            with open(f"{filename}.txt", "w") as out_file:
-                print("Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
-                for project in projects:
-                    print(f"{project.name}\t{project.start_date}\t{project.priority}\t{project.cost_estimate}"
-                          f"\t{project.completion_percentage}", file=out_file)
-                print("Save complete")
+            save_data(filename, projects)
+            print("Save complete")
         elif choice == "d":
             projects.sort()
             print("Incomplete Projects:")
@@ -74,6 +70,15 @@ def main():
                 chosen_project.priority = new_priority
         print(MENU)
         choice = input(">>> ").lower()
+        save_data(filename, projects)
+
+
+def save_data(filename, projects):
+    with open(f"{filename}.txt", "w") as out_file:
+        print("Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
+        for project in projects:
+            print(f"{project.name}\t{project.start_date}\t{project.priority}\t{project.cost_estimate}"
+                  f"\t{project.completion_percentage}", file=out_file)
 
 
 def get_valid_new_number():
