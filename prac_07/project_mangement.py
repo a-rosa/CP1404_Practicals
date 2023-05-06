@@ -58,9 +58,22 @@ def main():
             completion_percentage = get_valid_percentage()
             project = Project(name, start_date, priority, cost_estimate, completion_percentage)
             projects.append(project)
+        elif choice == "u":
+            for index in range(len(projects)):
+                project = projects[index]
+                print(f"{index} {project}")
+            project_choice = get_valid_project_choice(projects)
 
         print(MENU)
         choice = input(">>> ").lower()
+
+
+def get_valid_project_choice(projects):
+    project_choice = get_valid_integer("Project choice: ")
+    while project_choice < 0 or project_choice > (len(projects) - 1):
+        print("Invalid project choice")
+        project_choice = get_valid_integer("Project choice: ")
+    return project_choice
 
 
 def get_valid_estimate():
