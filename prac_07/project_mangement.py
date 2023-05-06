@@ -9,8 +9,10 @@ MENU = """- (L)oad Projects
 - (U)pdate project
 - (Q)uit"""
 
+
 def main():
-    with open("projects.txt", "r", newline='') as in_file:
+    filename = "projects.txt"
+    with open(filename, "r", newline='') as in_file:
         project_data = in_file.readlines()[1:]
         projects = store_data(project_data)
     print(MENU)
