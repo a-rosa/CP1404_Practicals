@@ -71,6 +71,7 @@ def main():
         print(MENU)
         choice = input(">>> ").lower()
         save_data(filename, projects)
+        print("Thank you for using custom-built project management software")
 
 
 def save_data(filename, projects):
