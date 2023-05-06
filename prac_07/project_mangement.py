@@ -8,11 +8,12 @@ MENU = """- (L)oad Projects
 - (A)dd new project
 - (U)pdate project
 - (Q)uit"""
+FILENAME = "projects"
 
 
 def main():
-    filename = "projects"
-    with open(f"{filename}.txt", "r", newline='') as in_file:
+    """Main program"""
+    with open(f"{FILENAME}.txt", "r", newline='') as in_file:
         project_data = in_file.readlines()[1:]
         projects = store_data(project_data)
     print(MENU)
@@ -70,11 +71,12 @@ def main():
                 chosen_project.priority = new_priority
         print(MENU)
         choice = input(">>> ").lower()
-        save_data(filename, projects)
-        print("Thank you for using custom-built project management software")
+    save_data(FILENAME, projects)
+    print("Thank you for using custom-built project management software")
 
 
 def save_data(filename, projects):
+    """Save data into the filename mentioned"""
     with open(f"{filename}.txt", "w") as out_file:
         print("Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
         for project in projects:
@@ -83,6 +85,7 @@ def save_data(filename, projects):
 
 
 def get_valid_new_number():
+    """Get valid new completion percentage or priority"""
     is_valid = False
     while not is_valid:
         new_number_string = input("New percentage: ")
@@ -101,6 +104,7 @@ def get_valid_new_number():
 
 
 def get_valid_project_choice(projects):
+    """Get valid project choice"""
     project_choice = get_valid_integer("Project choice: ")
     while project_choice < 0 or project_choice > (len(projects) - 1):
         print("Invalid project choice")
@@ -109,6 +113,7 @@ def get_valid_project_choice(projects):
 
 
 def get_valid_estimate():
+    """Get valid cost estimate"""
     cost_estimate = get_valid_float_value()
     while cost_estimate < 0:
         print("Invalid input, must be more than $0")
@@ -117,6 +122,7 @@ def get_valid_estimate():
 
 
 def get_valid_float_value():
+    """Get valid decimal number"""
     is_valid = False
     while not is_valid:
         try:
@@ -128,6 +134,7 @@ def get_valid_float_value():
 
 
 def get_valid_percentage():
+    """Get valid completion percentage"""
     completion_percentage = get_valid_integer("Completion percentage: ")
     while completion_percentage < 0 or completion_percentage > 100:
         print("Invalid percentage, between 0% and 100%")
@@ -136,6 +143,7 @@ def get_valid_percentage():
 
 
 def get_valid_priority():
+    """Get valid priority number"""
     priority = get_valid_integer("Priority: ")
     while priority <= 0:
         print("Invalid input, must be higher than 0")
@@ -144,6 +152,7 @@ def get_valid_priority():
 
 
 def get_valid_integer(prompt):
+    """Get valid integer number for either percentage or priority"""
     is_valid = False
     while not is_valid:
         try:
@@ -155,12 +164,14 @@ def get_valid_integer(prompt):
 
 
 def get_valid_start_date():
+    """Get valid start date"""
     date = get_valid_date("Start date: ")
-    start_date = f"{date.strftime('%d%m%Y')}"
+    start_date = f"{date.strftime('%d/%m/%Y')}"
     return start_date
 
 
 def get_valid_name():
+    """Get valid project name"""
     name = input("Project name: ").title()
     while name == "":
         print("Input can not be blank")
@@ -169,11 +180,16 @@ def get_valid_name():
 
 
 def sort_filtered_projects(filtered_projects):
+    """Sort filtered projects by the date"""
+    # Take the base standard on the left most of the list
     for first_pointer in range(len(filtered_projects)):
+        # Take the comparison value
         for second_pointer in range(len(filtered_projects)):
+            # Find the comparison and base date
             comparison_date = datetime.datetime.strptime(filtered_projects[second_pointer].start_date,
                                                          "%d/%m/%Y").date()
             base_date = datetime.datetime.strptime(filtered_projects[first_pointer].start_date, "%d/%m/%Y").date()
+            # If the comparison date is bigger than the base date, switch the position of the project
             if comparison_date > base_date:
                 temporary_storage = filtered_projects[second_pointer]
                 filtered_projects[second_pointer] = filtered_projects[first_pointer]
@@ -181,6 +197,7 @@ def sort_filtered_projects(filtered_projects):
 
 
 def filter_projects(date, projects):
+    """Filter the projects that happen on and after the date mentioned"""
     filtered_projects = []
     for project in projects:
         project_start_date = datetime.datetime.strptime(project.start_date, "%d/%m/%Y").date()
@@ -190,6 +207,7 @@ def filter_projects(date, projects):
 
 
 def get_valid_date(prompt):
+    """Get valid date"""
     is_valid = False
     while not is_valid:
         try:
@@ -202,6 +220,7 @@ def get_valid_date(prompt):
 
 
 def store_data(project_data):
+    """Store data into a list"""
     projects = []
     for data in project_data:
         data = data.strip().split("\t")
