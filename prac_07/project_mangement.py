@@ -9,7 +9,6 @@ MENU = """- (L)oad Projects
 - (U)pdate project
 - (Q)uit"""
 
-
 def main():
     with open("projects.txt", "r", newline='') as in_file:
         project_data = in_file.readlines()[1:]
@@ -63,9 +62,34 @@ def main():
                 project = projects[index]
                 print(f"{index} {project}")
             project_choice = get_valid_project_choice(projects)
-
+            chosen_project = projects[project_choice]
+            print(chosen_project)
+            new_percentage = get_valid_new_number()
+            if new_percentage is not None:
+                chosen_project.completion_percentage = new_percentage
+            new_priority = get_valid_new_number()
+            if new_priority is not None:
+                chosen_project.priority = new_priority
         print(MENU)
         choice = input(">>> ").lower()
+
+
+def get_valid_new_number():
+    is_valid = False
+    while not is_valid:
+        new_number_string = input("New percentage: ")
+        if new_number_string != "":
+            try:
+                new_number = int(new_number_string)
+                if new_number < 0 or new_number > 100:
+                    print("Invalid number")
+                else:
+                    is_valid = True
+                    return new_number
+            except ValueError:
+                print("Invalid value, integer needed")
+        else:
+            is_valid = True
 
 
 def get_valid_project_choice(projects):
@@ -124,7 +148,7 @@ def get_valid_integer(prompt):
 
 def get_valid_start_date():
     date = get_valid_date("Start date: ")
-    start_date = f"{date.strftime('%d')}/{date.strftime('%m')}/{date.strftime('%Y')}"
+    start_date = f"{date.strftime('%d%m%Y')}"
     return start_date
 
 
