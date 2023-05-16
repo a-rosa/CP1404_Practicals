@@ -38,5 +38,9 @@ def main():
         print(f"Bill to date: ${bill:.2f}")
         print(MENU)
         choice = input(">>> ").lower()
+    print(f"Total trip cost: ${bill}")
+    print("Taxis are now:")
+    for index in range(len(taxis)):
+        print(f"{index} - {taxis[index]}")
 
 main()
