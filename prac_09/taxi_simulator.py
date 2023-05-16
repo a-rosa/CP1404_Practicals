@@ -3,6 +3,7 @@ from silver_service_taxi import SilverServiceTaxi
 
 MENU = "q)uit, c)hoose taxi, d)rive"
 
+
 def main():
     prius = Taxi("Prius", 100)
     limo = SilverServiceTaxi("Limo", 100, 2)
@@ -19,7 +20,7 @@ def main():
             for index in range(len(taxis)):
                 print(f"{index} - {taxis[index]}")
             current_taxi = int(input("Chosen taxi: "))
-            if current_taxi < 0 or current_taxi > len(taxis)-1:
+            if current_taxi < 0 or current_taxi > len(taxis) - 1:
                 print("Invalid taxi choice")
                 taxi_chosen = False
             else:
@@ -42,5 +43,6 @@ def main():
     print("Taxis are now:")
     for index in range(len(taxis)):
         print(f"{index} - {taxis[index]}")
+
 
 main()
